@@ -1,11 +1,12 @@
 <?php
 
 use Zeeml\Algorithms\Adapter\LinearRegressionAdapter;
+use PHPUnit\Framework\TestCase;
 
 /**
  * LinearRegressionAdapter test case.
  */
-class LinearRegressionAdapterTest extends PHPUnit_Framework_TestCase
+class LinearRegressionAdapterTest extends TestCase
 {
 
     /**

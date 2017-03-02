@@ -1,11 +1,12 @@
 <?php
 
 use Zeeml\Algorithms\Dataset;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Dataset test case.
  */
-class DatasetTest extends PHPUnit_Framework_TestCase
+class DatasetTest extends TestCase
 {
 
     /**
