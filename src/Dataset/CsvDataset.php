@@ -1,13 +1,11 @@
 <?php
 
-namespace Zeeml\Algorithms;
+namespace Zeeml\Algorithms\Dataset;
 
 use League\Csv\Reader;
 
-class Dataset
+class CsvDataset extends AbstractDataset
 {
-    protected $data;
-    
     protected $path;
     
     public function __construct($path = null)
@@ -30,10 +28,4 @@ class Dataset
         
         return $this;
     }
-    
-    public function getData()
-    {
-        return $this->data;
-    }
 }
-

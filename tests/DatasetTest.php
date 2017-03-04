@@ -1,12 +1,12 @@
 <?php
 
-use Zeeml\Algorithms\Dataset;
+use Zeeml\Algorithms\Dataset\CsvDataset;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Dataset test case.
  */
-class DatasetTest extends TestCase
+class CsvDatasetTest extends TestCase
 {
 
     /**
@@ -21,7 +21,7 @@ class DatasetTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->dataset = new Dataset(__DIR__ . '/fixtures/LinearRegressionExample.csv');
+        $this->dataset = new CsvDataset(__DIR__ . '/fixtures/LinearRegressionExample.csv');
     }
 
     /**
