@@ -4,62 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c59f0d1750dec76b00e20b4f6472fab6",
+    "hash": "fc3507be72af8705ba33c3d7d405caa1",
+    "content-hash": "ccc071512ba92817c76bc8f8e4291bae",
     "packages": [
-        {
-            "name": "doctrine/instantiator",
-            "version": "1.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/8e884e78f9f0eb1329e445619e04456e64d8051d",
-                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3,<8.0-DEV"
-            },
-            "require-dev": {
-                "athletic/athletic": "~0.1.8",
-                "ext-pdo": "*",
-                "ext-phar": "*",
-                "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "~2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Doctrine\\Instantiator\\": "src/Doctrine/Instantiator/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marco Pivetta",
-                    "email": "ocramius@gmail.com",
-                    "homepage": "http://ocramius.github.com/"
-                }
-            ],
-            "description": "A small, lightweight utility to instantiate objects in PHP without invoking their constructors",
-            "homepage": "https://github.com/doctrine/instantiator",
-            "keywords": [
-                "constructor",
-                "instantiate"
-            ],
-            "time": "2015-06-14T21:17:01+00:00"
-        },
         {
             "name": "league/csv",
             "version": "8.2.1",
@@ -115,7 +62,103 @@
                 "read",
                 "write"
             ],
-            "time": "2017-02-23T08:25:03+00:00"
+            "time": "2017-02-23 08:25:03"
+        },
+        {
+            "name": "zeeml/dataset",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Zeeml/Dataset.git",
+                "reference": "0a24d522c5a44fc0961a00bb194db7f4353b5811"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Zeeml/Dataset/zipball/0a24d522c5a44fc0961a00bb194db7f4353b5811",
+                "reference": "0a24d522c5a44fc0961a00bb194db7f4353b5811",
+                "shasum": ""
+            },
+            "require": {
+                "league/csv": "8.2.1",
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "6.0.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Zeeml\\Dataset\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Olivier Lépine",
+                    "email": "olivier@lepine.fr"
+                },
+                {
+                    "name": "Adil El Kanabi",
+                    "email": "adil.kanabi@gmail.com"
+                }
+            ],
+            "time": "2017-03-07 15:57:54"
+        }
+    ],
+    "packages-dev": [
+        {
+            "name": "doctrine/instantiator",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/instantiator.git",
+                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/8e884e78f9f0eb1329e445619e04456e64d8051d",
+                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3,<8.0-DEV"
+            },
+            "require-dev": {
+                "athletic/athletic": "~0.1.8",
+                "ext-pdo": "*",
+                "ext-phar": "*",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\Instantiator\\": "src/Doctrine/Instantiator/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marco Pivetta",
+                    "email": "ocramius@gmail.com",
+                    "homepage": "http://ocramius.github.com/"
+                }
+            ],
+            "description": "A small, lightweight utility to instantiate objects in PHP without invoking their constructors",
+            "homepage": "https://github.com/doctrine/instantiator",
+            "keywords": [
+                "constructor",
+                "instantiate"
+            ],
+            "time": "2015-06-14 21:17:01"
         },
         {
             "name": "myclabs/deep-copy",
@@ -157,7 +200,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2017-01-26T22:05:40+00:00"
+            "time": "2017-01-26 22:05:40"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -211,7 +254,7 @@
                 "reflection",
                 "static analysis"
             ],
-            "time": "2015-12-27T11:43:31+00:00"
+            "time": "2015-12-27 11:43:31"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -256,7 +299,7 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2016-09-30T07:12:33+00:00"
+            "time": "2016-09-30 07:12:33"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -303,31 +346,31 @@
                     "email": "me@mikevanriel.com"
                 }
             ],
-            "time": "2016-11-25T06:54:22+00:00"
+            "time": "2016-11-25 06:54:22"
         },
         {
             "name": "phpspec/prophecy",
-            "version": "v1.6.2",
+            "version": "v1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "6c52c2722f8460122f96f86346600e1077ce22cb"
+                "reference": "93d39f1f7f9326d746203c7c056f300f7f126073"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/6c52c2722f8460122f96f86346600e1077ce22cb",
-                "reference": "6c52c2722f8460122f96f86346600e1077ce22cb",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/93d39f1f7f9326d746203c7c056f300f7f126073",
+                "reference": "93d39f1f7f9326d746203c7c056f300f7f126073",
                 "shasum": ""
             },
             "require": {
                 "doctrine/instantiator": "^1.0.2",
                 "php": "^5.3|^7.0",
                 "phpdocumentor/reflection-docblock": "^2.0|^3.0.2",
-                "sebastian/comparator": "^1.1",
-                "sebastian/recursion-context": "^1.0|^2.0"
+                "sebastian/comparator": "^1.1|^2.0",
+                "sebastian/recursion-context": "^1.0|^2.0|^3.0"
             },
             "require-dev": {
-                "phpspec/phpspec": "^2.0",
+                "phpspec/phpspec": "^2.5|^3.2",
                 "phpunit/phpunit": "^4.8 || ^5.6.5"
             },
             "type": "library",
@@ -366,20 +409,20 @@
                 "spy",
                 "stub"
             ],
-            "time": "2016-11-21T14:58:47+00:00"
+            "time": "2017-03-02 20:05:34"
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "5.0.2",
+            "version": "5.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "531553c4795a1df54114342d68ca337d5d81c8a0"
+                "reference": "4e99e1c4f9b05cbf4d6e84b100b3ff4107cf8cd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/531553c4795a1df54114342d68ca337d5d81c8a0",
-                "reference": "531553c4795a1df54114342d68ca337d5d81c8a0",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/4e99e1c4f9b05cbf4d6e84b100b3ff4107cf8cd1",
+                "reference": "4e99e1c4f9b05cbf4d6e84b100b3ff4107cf8cd1",
                 "shasum": ""
             },
             "require": {
@@ -429,7 +472,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-03-01T09:14:18+00:00"
+            "time": "2017-03-06 14:22:16"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -476,7 +519,7 @@
                 "filesystem",
                 "iterator"
             ],
-            "time": "2016-10-03T07:40:28+00:00"
+            "time": "2016-10-03 07:40:28"
         },
         {
             "name": "phpunit/php-text-template",
@@ -517,7 +560,7 @@
             "keywords": [
                 "template"
             ],
-            "time": "2015-06-21T13:50:34+00:00"
+            "time": "2015-06-21 13:50:34"
         },
         {
             "name": "phpunit/php-timer",
@@ -566,7 +609,7 @@
             "keywords": [
                 "timer"
             ],
-            "time": "2017-02-26T11:10:40+00:00"
+            "time": "2017-02-26 11:10:40"
         },
         {
             "name": "phpunit/php-token-stream",
@@ -615,7 +658,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2017-02-27T10:12:30+00:00"
+            "time": "2017-02-27 10:12:30"
         },
         {
             "name": "phpunit/phpunit",
@@ -697,27 +740,27 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-03-02T15:24:03+00:00"
+            "time": "2017-03-02 15:24:03"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "4.0.0",
+            "version": "4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "3819745c44f3aff9518fd655f320c4535d541af7"
+                "reference": "eabce450df194817a7d7e27e19013569a903a2bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/3819745c44f3aff9518fd655f320c4535d541af7",
-                "reference": "3819745c44f3aff9518fd655f320c4535d541af7",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/eabce450df194817a7d7e27e19013569a903a2bf",
+                "reference": "eabce450df194817a7d7e27e19013569a903a2bf",
                 "shasum": ""
             },
             "require": {
                 "doctrine/instantiator": "^1.0.2",
                 "php": "^7.0",
                 "phpunit/php-text-template": "^1.2",
-                "sebastian/exporter": "^2.0"
+                "sebastian/exporter": "^3.0"
             },
             "conflict": {
                 "phpunit/phpunit": "<6.0"
@@ -756,27 +799,27 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2017-02-02T10:36:38+00:00"
+            "time": "2017-03-03 06:30:20"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/code-unit-reverse-lookup.git",
-                "reference": "c36f5e7cfce482fde5bf8d10d41a53591e0198fe"
+                "reference": "4419fcdb5eabb9caa61a27c7a1db532a6b55dd18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/code-unit-reverse-lookup/zipball/c36f5e7cfce482fde5bf8d10d41a53591e0198fe",
-                "reference": "c36f5e7cfce482fde5bf8d10d41a53591e0198fe",
+                "url": "https://api.github.com/repos/sebastianbergmann/code-unit-reverse-lookup/zipball/4419fcdb5eabb9caa61a27c7a1db532a6b55dd18",
+                "reference": "4419fcdb5eabb9caa61a27c7a1db532a6b55dd18",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6"
+                "php": "^5.6 || ^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~5"
+                "phpunit/phpunit": "^5.7 || ^6.0"
             },
             "type": "library",
             "extra": {
@@ -801,34 +844,34 @@
             ],
             "description": "Looks up which function or method a line of code belongs to",
             "homepage": "https://github.com/sebastianbergmann/code-unit-reverse-lookup/",
-            "time": "2016-02-13T06:45:14+00:00"
+            "time": "2017-03-04 06:30:41"
         },
         {
             "name": "sebastian/comparator",
-            "version": "1.2.4",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "2b7424b55f5047b47ac6e5ccb20b2aea4011d9be"
+                "reference": "20f84f468cb67efee293246e6a09619b891f55f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/2b7424b55f5047b47ac6e5ccb20b2aea4011d9be",
-                "reference": "2b7424b55f5047b47ac6e5ccb20b2aea4011d9be",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/20f84f468cb67efee293246e6a09619b891f55f0",
+                "reference": "20f84f468cb67efee293246e6a09619b891f55f0",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3",
-                "sebastian/diff": "~1.2",
-                "sebastian/exporter": "~1.2 || ~2.0"
+                "php": "^7.0",
+                "sebastian/diff": "^1.2",
+                "sebastian/exporter": "^3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.4"
+                "phpunit/phpunit": "^6.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
@@ -865,7 +908,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2017-01-29T09:50:25+00:00"
+            "time": "2017-03-03 06:26:08"
         },
         {
             "name": "sebastian/diff",
@@ -917,7 +960,7 @@
             "keywords": [
                 "diff"
             ],
-            "time": "2015-12-08T07:14:41+00:00"
+            "time": "2015-12-08 07:14:41"
         },
         {
             "name": "sebastian/environment",
@@ -967,34 +1010,34 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2016-11-26T07:53:53+00:00"
+            "time": "2016-11-26 07:53:53"
         },
         {
             "name": "sebastian/exporter",
-            "version": "2.0.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "ce474bdd1a34744d7ac5d6aad3a46d48d9bac4c4"
+                "reference": "b82d077cb3459e393abcf4867ae8f7230dcb51f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/ce474bdd1a34744d7ac5d6aad3a46d48d9bac4c4",
-                "reference": "ce474bdd1a34744d7ac5d6aad3a46d48d9bac4c4",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/b82d077cb3459e393abcf4867ae8f7230dcb51f6",
+                "reference": "b82d077cb3459e393abcf4867ae8f7230dcb51f6",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3",
-                "sebastian/recursion-context": "~2.0"
+                "php": "^7.0",
+                "sebastian/recursion-context": "^3.0"
             },
             "require-dev": {
                 "ext-mbstring": "*",
-                "phpunit/phpunit": "~4.4"
+                "phpunit/phpunit": "^6.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "3.0.x-dev"
                 }
             },
             "autoload": {
@@ -1034,7 +1077,7 @@
                 "export",
                 "exporter"
             ],
-            "time": "2016-11-19T08:54:04+00:00"
+            "time": "2017-03-03 06:25:06"
         },
         {
             "name": "sebastian/global-state",
@@ -1085,33 +1128,33 @@
             "keywords": [
                 "global state"
             ],
-            "time": "2015-10-12T03:26:01+00:00"
+            "time": "2015-10-12 03:26:01"
         },
         {
             "name": "sebastian/object-enumerator",
-            "version": "2.0.1",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/object-enumerator.git",
-                "reference": "1311872ac850040a79c3c058bea3e22d0f09cbb7"
+                "reference": "de6e32f7192dfea2e4bedc892434f4830b5c5794"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/object-enumerator/zipball/1311872ac850040a79c3c058bea3e22d0f09cbb7",
-                "reference": "1311872ac850040a79c3c058bea3e22d0f09cbb7",
+                "url": "https://api.github.com/repos/sebastianbergmann/object-enumerator/zipball/de6e32f7192dfea2e4bedc892434f4830b5c5794",
+                "reference": "de6e32f7192dfea2e4bedc892434f4830b5c5794",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6",
-                "sebastian/recursion-context": "~2.0"
+                "php": "^7.0",
+                "sebastian/recursion-context": "^3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~5"
+                "phpunit/phpunit": "^6.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "3.0.x-dev"
                 }
             },
             "autoload": {
@@ -1131,32 +1174,32 @@
             ],
             "description": "Traverses array structures and object graphs to enumerate all referenced objects",
             "homepage": "https://github.com/sebastianbergmann/object-enumerator/",
-            "time": "2017-02-18T15:18:39+00:00"
+            "time": "2017-03-03 06:21:01"
         },
         {
             "name": "sebastian/recursion-context",
-            "version": "2.0.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/recursion-context.git",
-                "reference": "2c3ba150cbec723aa057506e73a8d33bdb286c9a"
+                "reference": "5b0cd723502bac3b006cbf3dbf7a1e3fcefe4fa8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/2c3ba150cbec723aa057506e73a8d33bdb286c9a",
-                "reference": "2c3ba150cbec723aa057506e73a8d33bdb286c9a",
+                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/5b0cd723502bac3b006cbf3dbf7a1e3fcefe4fa8",
+                "reference": "5b0cd723502bac3b006cbf3dbf7a1e3fcefe4fa8",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": "^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.4"
+                "phpunit/phpunit": "^6.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "3.0.x-dev"
                 }
             },
             "autoload": {
@@ -1184,7 +1227,7 @@
             ],
             "description": "Provides functionality to recursively process PHP variables",
             "homepage": "http://www.github.com/sebastianbergmann/recursion-context",
-            "time": "2016-11-19T07:33:16+00:00"
+            "time": "2017-03-03 06:23:57"
         },
         {
             "name": "sebastian/resource-operations",
@@ -1226,7 +1269,7 @@
             ],
             "description": "Provides a list of PHP built-in functions that operate on resources",
             "homepage": "https://www.github.com/sebastianbergmann/resource-operations",
-            "time": "2015-07-28T20:34:47+00:00"
+            "time": "2015-07-28 20:34:47"
         },
         {
             "name": "sebastian/version",
@@ -1269,7 +1312,7 @@
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
-            "time": "2016-10-03T07:35:21+00:00"
+            "time": "2016-10-03 07:35:21"
         },
         {
             "name": "webmozart/assert",
@@ -1319,15 +1362,18 @@
                 "check",
                 "validate"
             ],
-            "time": "2016-11-23T20:04:58+00:00"
+            "time": "2016-11-23 20:04:58"
         }
     ],
-    "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "zeeml/dataset": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=7.0.0"
+    },
     "platform-dev": []
 }
