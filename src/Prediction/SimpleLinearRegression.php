@@ -45,8 +45,23 @@ class SimpleLinearRegression extends AbstracPrediction
         $this->calculateSlope($this->dataset, 0, 0, $this->getMeanInputAt(0), $this->getMeanOutputAt(0));
         //And calculate the intercept
         $this->calculateIntercept($this->getSlope(), $this->getMeanInputAt(0), $this->getMeanOutputAt(0));
-
+        //update the dataset with all the calculated info
         return $this;
+    }
+
+    public function updateDataset()
+    {
+        foreach ($this->dataset as $instance) {
+            $instance->result(
+                [
+                    'LinearRegression' => [
+                        'meanInputs'  => $this->getMeanInputs(),
+                        'meanOutputs' => $this->getMeanOutputs(),
+                        'prediction'  => $this->predict($instance->inputs()[0]),
+                    ]
+                ]
+            );
+        }
     }
 
     /**

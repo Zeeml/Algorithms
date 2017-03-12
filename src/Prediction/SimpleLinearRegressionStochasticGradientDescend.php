@@ -49,6 +49,23 @@ class SimpleLinearRegressionStochasticGradientDescend extends AbstracPrediction
         return $this;
     }
 
+    public function updateDataset()
+    {
+        foreach ($this->dataset as $instance) {
+            $instance->result(
+                [
+                    'LinearRegressionStochasticGradientDescent' => [
+                        'intercepts'   => $this->intercepts(),
+                        'slopes'       => $this->slopes,
+                        'erros'        => $this->errors,
+                        'learningRate' => $this->learningRate,
+                        'epochs'       => $this->epochs,
+                    ]
+                ]
+            );
+        }
+    }
+
     /**
      * function that returns the prediction after the training using thr formula :
      * prediction = intercept + slope * input
@@ -57,7 +74,7 @@ class SimpleLinearRegressionStochasticGradientDescend extends AbstracPrediction
      */
     public function predict($input): float
     {
-        return $this->getIntercept() + $this->getSlope() * $input;
+        return end($this->intercepts) + end($this->errors) * $input;
     }
 
     /**
@@ -96,5 +113,29 @@ class SimpleLinearRegressionStochasticGradientDescend extends AbstracPrediction
         $this->epochs = $epochs;
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getErros(): array
+    {
+        return $this->errors;
+    }
+
+    /**
+     * @return array
+     */
+    public function getIntercepts(): array
+    {
+        return $this->intercepts;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSlopes(): array
+    {
+        return $this->slopes;
     }
 }

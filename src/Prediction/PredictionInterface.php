@@ -13,4 +13,6 @@ interface PredictionInterface
     public function train();
 
     public function predict($input);
+
+    public function updateDataset();
 }
