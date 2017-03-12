@@ -11,7 +11,7 @@ use Zeeml\Algorithms\Helpers\SlopeCalculator;
  * class that trains a set of data following the linear regression method
  * @package Zeeml\Algorithms\Adapter
  */
-class LinearRegression extends AbstracPrediction
+class SimpleLinearRegression extends AbstracPrediction
 {
     use MeanCalculator;
     use SlopeCalculator;
