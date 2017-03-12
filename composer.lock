@@ -70,12 +70,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Zeeml/Dataset.git",
-                "reference": "0a24d522c5a44fc0961a00bb194db7f4353b5811"
+                "reference": "a528bde3e600f41ceb27bba040b21b5f48baff38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Zeeml/Dataset/zipball/0a24d522c5a44fc0961a00bb194db7f4353b5811",
-                "reference": "0a24d522c5a44fc0961a00bb194db7f4353b5811",
+                "url": "https://api.github.com/repos/Zeeml/Dataset/zipball/a528bde3e600f41ceb27bba040b21b5f48baff38",
+                "reference": "a528bde3e600f41ceb27bba040b21b5f48baff38",
                 "shasum": ""
             },
             "require": {
@@ -83,7 +83,7 @@
                 "php": ">=7.0.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "6.0.8"
+                "phpunit/phpunit": "6.0.*"
             },
             "type": "library",
             "autoload": {
@@ -92,6 +92,9 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
                     "name": "Olivier Lépine",
@@ -102,7 +105,8 @@
                     "email": "adil.kanabi@gmail.com"
                 }
             ],
-            "time": "2017-03-07 15:57:54"
+            "description": "A multi-purpose Dataset for Machine Learning algorithms training",
+            "time": "2017-03-11 15:27:39"
         }
     ],
     "packages-dev": [
