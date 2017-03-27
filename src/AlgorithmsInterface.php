@@ -1,14 +1,12 @@
 <?php
 
-namespace Zeeml\Algorithms\Algorithms;
+namespace Zeeml\Algorithms;
 
-use Zeeml\Dataset\DatasetInterface;
+use Zeeml\DataSet\DataSet;
 
 interface AlgorithmsInterface
 {
-    public function train(DatasetInterface $dataset, float $learningRate = 0, AlgorithmsInterface $previous = null): AlgorithmsInterface;
-
-    public function test(DatasetInterface $dataset);
-
-    public function process($input);
+    public function fit(DataSet $data, float $learningRate = 0.0): AlgorithmsInterface;
+    public function test(DataSet $data);
+    public function process(float $data): float;
 }

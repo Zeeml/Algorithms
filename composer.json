@@ -2,19 +2,22 @@
   "name" : "zeeml/algorithms",
   "require" : {
     "php" : ">=7.0.0",
-    "zeeml/dataset" : "dev-master"
+    "zeeml/dataset": "dev-master",
+    "numphp/numphp": "^1.1"
   },
   "repositories" : [ {
     "type" : "composer",
     "url" : "https://packagist.org/"
   } ],
   "require-dev" : {
-    "phpunit/phpunit" : "6.0.8"
+    "phpunit/phpunit" : "6.0.8",
+    "kanel/timer": "~1.0.0",
+    "phpspec/phpspec": "^3.4"
   },
   "autoload-dev" : {
     "psr-4" : {
       "Zeeml\\Algorithms\\" : "src/",
-      "Zeeml\\Algorithms\\Tests\\" : "tests/fixtures"
+      "Zeeml\\Algorithms\\Tests\\" : "tests/"
     }
   },
   "autoload" : {
