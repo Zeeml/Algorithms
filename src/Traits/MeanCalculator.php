@@ -1,12 +1,16 @@
 <?php
 
-namespace Zeeml\Algorithms\Helpers;
+namespace Zeeml\Algorithms\Algorithms\Traits;
 
 use Zeeml\Algorithms\Exceptions\EmptyDatasetException;
 use Zeeml\Algorithms\Exceptions\IndexNotFoundException;
 use Zeeml\Dataset\Dataset;
 use Zeeml\Dataset\DatasetInterface;
 
+/**
+ * trait MeanCalculator
+ * @package Zeeml\Algorithms\Algorithms\Traits
+ */
 trait MeanCalculator
 {
     protected $meanInputs = [];
@@ -95,5 +99,14 @@ trait MeanCalculator
         }
 
         throw new IndexNotFoundException('Mean of output at index ' . $index . ' not found');
+    }
+
+    /**
+     * resets the mean calculator by emptying the dimensions means and output means
+     */
+    public function reset()
+    {
+        $this->meanInputs = [];
+        $this->meanOutputs = [];
     }
 }

@@ -17,8 +17,9 @@ class SimpleLinearRegressionTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
+        $mapping = new Mapping();
         $dataset = Dataset::factory(__DIR__ . '/fixtures/LinearRegressionExample.csv', Dataset::PREDICTION);
-        $dataset->processor()->populate();
+        $dataset->prepare($mapping);
         $this->simpleLinearRegression = new SimpleLinearRegression($dataset);
     }
 
