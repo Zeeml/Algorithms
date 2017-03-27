@@ -2,24 +2,13 @@
 
 namespace Zeeml\Algorithms\Prediction;
 
-use Zeeml\Algorithms\Helpers\InterceptCalculator;
-use Zeeml\Algorithms\Helpers\MeanCalculator;
-use Zeeml\Algorithms\Helpers\SlopeCalculator;
-
 /**
  * Class LinearRegression
  * class that trains a set of data following the linear regression method
  * @package Zeeml\Algorithms\Adapter
  */
-class SimpleLinearRegression extends AbstracPrediction
+class LinearRegression extends AbstracPrediction
 {
-    use MeanCalculator;
-    use SlopeCalculator;
-    use InterceptCalculator;
-
-    //protected $isPrepared = false;
-    //protected $isTrained = false;
-
     public function prepare(): PredictionInterface
     {
         //$this->isPrepared = true;

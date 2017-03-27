@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeeml\Algorithms\Helpers;
+namespace Zeeml\Algorithms\Math;
 
 use Zeeml\Dataset\Dataset;
 use Zeeml\Dataset\DatasetInterface;

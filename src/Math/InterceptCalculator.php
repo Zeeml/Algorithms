@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeeml\Algorithms\Helpers;
+namespace Zeeml\Algorithms\Math;
 
 trait InterceptCalculator
 {
