@@ -1,33 +1,18 @@
 <?php
 
-namespace Zeeml\Algorithms\Algorithms;
+namespace Zeeml\Algorithms;
 
-use Zeeml\Algorithms\Algorithms\Traits\InterceptCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\PredictionCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\LinearRegressionScore;
-use Zeeml\Algorithms\Algorithms\Traits\MeanCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\MinMaxCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\RmseCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\SlopeCalculator;
-use Zeeml\Dataset\DatasetInterface;
+use Zeeml\Algorithms\Traits\MeanCalculator;
 
 /**
- * Class LinearRegression
- * class that trains a set of data following the linear regression method
+ * Class SimpleLinearRegressionAlgorithm
+ * class that trains an array dataset following the linear regression method
  * @package Zeeml\Algorithms\Adapter
  */
 class SimpleLinearRegressionAlgorithm extends AbstractAlgorithms
 {
-    use MeanCalculator, MinMaxCalculator, SlopeCalculator, InterceptCalculator, LinearRegressionScore, PredictionCalculator, RmseCalculator {
+    use MeanCalculator {
         MeanCalculator::reset as resetMeans;
-        SlopeCalculator::reset as resetSlope;
-        InterceptCalculator::reset as resetIntercept;
-        InterceptCalculator::calculate1 as calculateIntercept;
-        PredictionCalculator::reset as resetPrediction;
-        PredictionCalculator::linearPrediction as predict;
-        LinearRegressionScore::reset as resetScore;
-        RmseCalculator::reset as resetRmse;
-        MinMaxCalculator::reset as resetMinMax;
     }
 
     public function __construct()
@@ -37,15 +22,14 @@ class SimpleLinearRegressionAlgorithm extends AbstractAlgorithms
 
     /**
      * Train the dataset following the Simple Linear Regression Algorithm and calculates the slope and intercept
-     * @param DatasetInterface $dataset
+     * @param array $dataset
      * @param float $learningRate
-     * @param AlgorithmsInterface|null $previous
      * @return AlgorithmsInterface
      */
-    public function train(DatasetInterface $dataset, float $learningRate = 0.0, AlgorithmsInterface $previous = null): AlgorithmsInterface
+    public function fit(array $dataset, float $learningRate = 0.0): AlgorithmsInterface
     {
-        $this->calculateMeans($dataset);
-        $this->calculateSlopeDataset($dataset, 0, 0, $this->getMeanInputAt(0), $this->getMeanOutputAt(0));
+        $means = $this->calculateMeans($dataset);
+        $this->calculateSlopeDataset($dataset, 0, 0, $means));
         $this->calculateIntercept($this->getMeanOutputAt(0), $this->getSlope(), $this->getMeanInputAt(0));
 
         return $this;

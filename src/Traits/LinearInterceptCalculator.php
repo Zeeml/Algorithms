@@ -1,10 +1,10 @@
 <?php
 
-namespace Zeeml\Algorithms\Algorithms\Traits;
+namespace Zeeml\Algorithms\Traits;
 
 /**
  * trait InterceptCalculator that calculates an intercept
- * @package Zeeml\Algorithms\Algorithms\Traits
+ * @package Zeeml\Algorithms\Traits
  */
 trait InterceptCalculator
 {
@@ -17,7 +17,7 @@ trait InterceptCalculator
      * @param float $slope
      * @param float $meanInput
      */
-    protected function calculate1(float $meanOutput, float $slope, float $meanInput)
+    protected function calculateLinearIntercept(float $meanOutput, float $slope, float $meanInput)
     {
         $this->intercept = $meanOutput - ($slope * $meanInput);
     }

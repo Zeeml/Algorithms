@@ -1,12 +1,12 @@
 <?php
 
-namespace Zeeml\Algorithms\Algorithms\Traits;
+namespace Zeeml\Algorithms\Traits;
 
 use Zeeml\Dataset\DatasetInterface;
 
 /**
  * trait ErrorCalculator
- * @package Zeeml\Algorithms\Algorithms\Traits
+ * @package Zeeml\Algorithms\Traits
  */
 trait Normalizer
 {

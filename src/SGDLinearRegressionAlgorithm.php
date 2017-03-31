@@ -1,15 +1,14 @@
 <?php
 
-namespace Zeeml\Algorithms\Algorithms;
+namespace Zeeml\Algorithms;
 
-use Zeeml\Algorithms\Algorithms\Traits\InterceptCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\PredictionCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\LinearRegressionScore;
-use Zeeml\Algorithms\Algorithms\Traits\MeanCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\PredictionErrorCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\RmseCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\SlopeCalculator;
-use Zeeml\Dataset\DatasetInterface;
+use Zeeml\Algorithms\Traits\InterceptCalculator;
+use Zeeml\Algorithms\Traits\PredictionCalculator;
+use Zeeml\Algorithms\Traits\LinearRegressionScore;
+use Zeeml\Algorithms\Traits\MeanCalculator;
+use Zeeml\Algorithms\Traits\PredictionErrorCalculator;
+use Zeeml\Algorithms\Traits\RmseCalculator;
+use Zeeml\Algorithms\Traits\SlopeCalculator;
 
 /**
  * Class SGDLinearRegressionAlgorithm
@@ -48,7 +47,7 @@ class SGDLinearRegressionAlgorithm extends AbstractAlgorithms
      * @param AlgorithmsInterface $previous the previous algorithm used during the previsous epoch , null if first epoch
      * @return AlgorithmsInterface
      */
-    public function train(DatasetInterface $dataset, float $learningRate = 0.0, AlgorithmsInterface $previous = null): AlgorithmsInterface
+    public function train(array $dataset, float $learningRate = 0.0, AlgorithmsInterface $previous = null): AlgorithmsInterface
     {
         //The history starts off by the latest intercept and slope calculated, if first iteration it is equal to 0
         if ($previous) {
@@ -85,7 +84,7 @@ class SGDLinearRegressionAlgorithm extends AbstractAlgorithms
      * @param DatasetInterface $dataset
      * @return float
      */
-    public function test(DatasetInterface $dataset)
+    public function test(array $dataset)
     {
         $this->calculateMeans($dataset);
         $this->calculateRmse($dataset);

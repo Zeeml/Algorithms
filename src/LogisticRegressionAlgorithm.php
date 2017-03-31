@@ -1,13 +1,12 @@
 <?php
 
-namespace Zeeml\Algorithms\Algorithms;
+namespace Zeeml\Algorithms;
 
-use Zeeml\Algorithms\Algorithms\Traits\InterceptCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\MeanCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\PredictionCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\RmseCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\SlopeCalculator;
-use Zeeml\Dataset\DatasetInterface;
+use Zeeml\Algorithms\Traits\InterceptCalculator;
+use Zeeml\Algorithms\Traits\MeanCalculator;
+use Zeeml\Algorithms\Traits\PredictionCalculator;
+use Zeeml\Algorithms\Traits\RmseCalculator;
+use Zeeml\Algorithms\Traits\SlopeCalculator;
 
 /**
  * Class LogisticRegressionAlgorithm
@@ -50,7 +49,7 @@ class LogisticRegressionAlgorithm extends AbstractAlgorithms
      * @param AlgorithmsInterface|null $previous
      * @return AlgorithmsInterface
      */
-    public function train(array $data, float $learningRate = 0.0, AlgorithmsInterface $previous = null): AlgorithmsInterface
+    public function train(array $dataset, float $learningRate = 0.0, AlgorithmsInterface $previous = null): AlgorithmsInterface
     {
         //if a previous algorithm was used to train the dataset
         if ($previous) {

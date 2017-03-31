@@ -1,13 +1,13 @@
 <?php
 
-namespace Zeeml\Algorithms\Algorithms\Traits;
+namespace Zeeml\Algorithms\Traits;
 
 use Zeeml\Algorithms\Exceptions\MissingMethodException;
 use Zeeml\Dataset\DatasetInterface;
 
 /**
  * trait RmseCalculator
- * @package Zeeml\Algorithms\Algorithms\Traits
+ * @package Zeeml\Algorithms\Traits
  */
 trait RmseCalculator
 {

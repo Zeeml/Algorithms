@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeeml\Algorithms\Algorithms\Traits;
+namespace Zeeml\Algorithms\Traits;
 
 use Zeeml\Algorithms\Exceptions\EmptyDatasetException;
 use Zeeml\Algorithms\Exceptions\IndexNotFoundException;
@@ -9,7 +9,7 @@ use Zeeml\Dataset\DatasetInterface;
 
 /**
  * trait LinearPredictionCalculator
- * @package Zeeml\Algorithms\Algorithms\Traits
+ * @package Zeeml\Algorithms\Traits
  */
 trait PredictionCalculator
 {

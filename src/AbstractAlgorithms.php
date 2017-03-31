@@ -1,8 +1,6 @@
 <?php
 
-namespace Zeeml\Algorithms\Algorithms;
-
-use Zeeml\Dataset\DatasetInterface;
+namespace Zeeml\Algorithms;
 
 /**
  * abstract Class AbstractAlgorithms
