@@ -3,7 +3,6 @@
 namespace Zeeml\Algorithms\Traits;
 
 use Zeeml\Algorithms\Exceptions\MissingMethodException;
-use Zeeml\Dataset\DatasetInterface;
 
 /**
  * trait RmseCalculator
@@ -22,23 +21,23 @@ trait RmseCalculator
      *
      * where n is the number of elements in the dataset
      *
-     * @param DatasetInterface $dataset
+     * @param array $dataset
      * @return float
      * @throws MissingMethodException
      */
-    public function calculateRmse(DatasetInterface $dataset)
+    public function calculateRmse(array $dataset)
     {
         if (! method_exists($this, 'process')) {
             throw new MissingMethodException('Child class must implement process method');
         }
 
         $rmse = 0;
-        foreach ($dataset as $instance) {
-            $prediction = $this->process($instance->inputs()[0]);
-            $rmse +=  pow($prediction - floatval($instance->outputs()[0]), 2);
+        foreach ($dataset as $row) {
+            $prediction = $this->process($row[0][0]);
+            $rmse +=  pow($prediction - floatval($row[1][0]), 2);
         }
 
-        $this->rmse = sqrt($rmse / count($dataset->instances()));
+        $this->rmse = sqrt($rmse / count($dataset));
     }
 
     /**
@@ -50,7 +49,7 @@ trait RmseCalculator
         return $this->rmse;
     }
 
-    public function reset()
+    public function resetRmse()
     {
         $this->rmse = 0;
     }

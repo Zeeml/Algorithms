@@ -33,12 +33,12 @@ trait PredictionErrorCalculator
      * returns the error
      * @return array
      */
-    public function getError(): float
+    public function getPredictionError(): float
     {
         return $this->error;
     }
 
-    public function reset()
+    public function resetPredictionError()
     {
         $this->error = 0;
     }

@@ -78,7 +78,7 @@ trait MinMaxCalculator
         return $this->maxOutputs;
     }
 
-    public function reset()
+    public function resetMinMax()
     {
         $this->minInputs = [];
         $this->maxInputs = [];

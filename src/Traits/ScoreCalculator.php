@@ -9,7 +9,7 @@ use Zeeml\Dataset\DatasetInterface;
  * trait RmseCalculator
  * @package Zeeml\Algorithms\Traits
  */
-trait LinearRegressionScore
+trait ScoreCalculator
 {
     protected $score;
 
@@ -19,11 +19,11 @@ trait LinearRegressionScore
      * and v is the residual sum of squares ((y_true - y_true.mean()) ** 2).sum().
      * Best possible score is 1.0 and it can be negative (because the model can be arbitrarily worse).
      * A constant model that always predicts the expected value of y, disregarding the input features, would get a R^2 score of 0.0.
-     * @param DatasetInterface $dataset
+     * @param array $dataset
      * @param float $meanOutput
      * @throws MissingMethodException
      */
-    public function calculatescore(DatasetInterface $dataset, float $meanOutput)
+    public function calculateScore(array $dataset, float $meanOutput)
     {
         if (! method_exists($this, 'process')) {
             throw new MissingMethodException('Child class must implement process method');
@@ -31,10 +31,10 @@ trait LinearRegressionScore
 
         $score = 0;
         $denominator = 0;
-        foreach ($dataset as $instance) {
-            $prediction = $this->process($instance->inputs()[0]);
-            $score +=  pow(floatval($instance->outputs()[0]) - $prediction, 2);
-            $denominator += pow(floatval($instance->outputs()[0]) - $meanOutput, 2);
+        foreach ($dataset as $row) {
+            $prediction = $this->process($row[0][0]);
+            $score +=  pow(floatval($row[1][0]) - $prediction, 2);
+            $denominator += pow(floatval($row[1][0]) - $meanOutput, 2);
         }
 
         $this->score = 1 - ($score / $denominator);
@@ -49,7 +49,7 @@ trait LinearRegressionScore
         return $this->score;
     }
 
-    public function reset()
+    public function resetScore()
     {
         $this->score = 0;
     }

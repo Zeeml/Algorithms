@@ -9,7 +9,8 @@
     "url" : "https://packagist.org/"
   } ],
   "require-dev" : {
-    "phpunit/phpunit" : "6.0.8"
+    "phpunit/phpunit" : "6.0.8",
+    "kanel/timer": "~1.0.0"
   },
   "autoload-dev" : {
     "psr-4" : {

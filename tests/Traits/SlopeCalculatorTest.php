@@ -28,25 +28,52 @@ class SlopeCalculatorTest extends TestCase
         parent::tearDown();
     }
 
-    public function testMethod1BigData()
+    public function testCalculateSlope2BigData()
     {
-        $data = array_pad([], 100000, [ [1, 6, 9, 18, 6, 56], [78, 67] ]);
-        $means = [ [1, 6, 9, 18, 6, 56], [78, 67] ];
-        $this->class->method1($data, 0, 0, $means);
-        $this->assertEquals($this->class->getSlope(), 0);
+        $data = array_pad([], 100000, [ array_pad([], 1000, 1), array_pad([], 1000, 2) ]);
+        $this->class->calculateSlope2($data, 1, 2);
+        $this->assertEquals($this->class->getSlope(0), 0);
     }
 
-    public function testMethod1()
+    public function testCalculateSlope2()
     {
         $data = [
-            [[1], [1]],
-            [[2], [3]],
-            [[4], [3]],
-            [[3], [2]],
-            [[5], [5]],
+            [[1, 2], [1]],
+            [[2, 3], [3]],
+            [[4, 4], [3]],
+            [[3, 5], [2]],
+            [[5, 4], [5]],
         ];
-        $means = [ [3], [2.8] ];
-        $this->class->method1($data, 0, 0, $means);
-        $this->assertEquals($this->class->getSlope(), 0.8);
+
+        $this->class->calculateSlope2($data, 3, 2.8, 0);
+        $this->assertEquals($this->class->getSlope(0), 0.8);
+        $this->class->calculateSlope2($data, 3.6, 2.8, 1);
+        $this->assertEquals($this->class->getSlope(1), 0.22033898305084748);
+
+        $this->assertEquals($this->class->getSlopes(), [0.8, 0.22033898305084748]);
+
+    }
+
+    public function testCalculateSlope1()
+    {
+        $this->class->calculateSlope1(1, 0.1, 2, 0);
+        $this->assertEquals($this->class->getSlope(0), -0.2);
+        $this->class->calculateSlope1(1, 0.1, 2, 1);
+        $this->class->calculateSlope1(1, 0.1, 2, 1);
+        $this->assertEquals($this->class->getSlope(1), -0.4);
+
+        $this->assertEquals($this->class->getSlopes(), [-0.2, -0.4]);
+    }
+
+    public function testResetSlopes()
+    {
+        $this->class->resetSlopes();
+        $this->assertEquals($this->class->getSlopes(), []);
+    }
+
+    public function testResetSlope()
+    {
+        $this->class->resetSlope(0);
+        $this->assertEquals($this->class->getSlope(0), 0);
     }
 }

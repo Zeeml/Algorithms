@@ -8,64 +8,84 @@ namespace Zeeml\Algorithms\Traits;
  */
 trait SlopeCalculator
 {
-    protected $slope;
+    protected $slopes;
 
     /**
-     * Calculating the slope of the dataset following the formula:
+     * calculate the slope using the learning rate following the formula :
+     *
+     *  slope = previousSlope - learningRate * error * input;
+     *
+     * @param float $input
+     * @param float $learningRate
+     * @param float $error
+     */
+    public function calculateSlope1(float $input, float $learningRate, float $error, int $index = 0)
+    {
+        $this->slopes[$index] = $this->slopes[$index]?? 0;
+        $this->slopes[$index] = $this->slopes[$index] - $learningRate * $error * $input;
+    }
+
+    /**
+     * * Calculating the slope of the dataset following the formula:
+     *
      *               Σ(x - mean(x))(y - mean(y))
      *   slope =     ---------------------------
      *                     Σ(x - mean(x))²
      *
      * @param array $dataset
-     * @param int $indexDimension
-     * @param int $indexOutput
-     * @param array $means
+     * @param float $meanInputs
+     * @param float $meanOutputs
      * @return float
      */
-    public function method1(array $dataset, int $indexDimension, int $indexOutput, array $means): float
+    public function calculateSlope2(array $dataset, float $meanInput, float $meanOutput, int $index = 0): float
     {
-        $this->reset();
+        $this->slopes[$index] = $this->slopes[$index]?? 0;
         $denominator = 0;
         foreach ($dataset as $row) {
-            $this->slope += ($row[0][$indexDimension] - $means[0][$indexDimension]) * ($row[1][$indexOutput] - $means[1][$indexOutput]);
-            $denominator += pow(($row[0][$indexDimension] - $means[0][$indexDimension]), 2);
+            $this->slopes[$index] += ($row[0][$index] - $meanInput) * ($row[1][0] - $meanOutput);
+            $denominator += pow(($row[0][0] - $meanInput), 2);
         }
 
-        if ($denominator === 0) {
-            $this->slope = 0;
+        if ($denominator == 0) {
+            $this->slopes[$index] = 0;
         } else {
-            $this->slope /= $denominator;
+            $this->slopes[$index] /= $denominator;
         }
 
-        return $this->slope;
+        return $this->slopes[$index];
     }
 
     /**
-     * calculate the slope using the learning rate following the formula :
-     *  slope = previousSlope - learningRate * error * input;
-     * @param float $input
-     * @param float $learningRate
-     * @param float $error
-     */
-    public function calculateSlope(float $input, float $learningRate, float $error)
-    {
-        $this->slope = $this->slope - $learningRate * $error * $input;
-    }
-
-    /**
-     * returns the slope
+     * returns the slopes of all the indexes
      * @return float
      */
-    public function getSlope(): float
+    public function getSlopes(): array
     {
-        return $this->slope;
+        return $this->slopes;
+    }
+
+    /**
+     * returns the slope of the specified index
+     * @return float
+     */
+    public function getSlope(int $index): float
+    {
+        return $this->slopes[$index]?? 0;
     }
 
     /**
      * resets the slopeCalculator by setting the slope to 0
      */
-    public function reset()
+    public function resetSlopes()
     {
-        $this->slope = 0;
+        $this->slopes = [];
+    }
+
+    /**
+     * resets the slopeCalculator by setting the slope to 0
+     */
+    public function resetSlope(int $index)
+    {
+        $this->slopes[$index] = 0;
     }
 }

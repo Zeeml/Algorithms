@@ -2,6 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use Zeeml\Algorithms\Traits\MeanCalculator;
+use Kanel\Timer\Timer;
 
 /**
  * Class LinearRegressionTest
@@ -30,10 +31,10 @@ class MeanCalculatorTest extends TestCase
 
     public function testCalculateMeansBigData()
     {
-        $data = array_pad([], 100000, [ array_pad([], 1000, 1), array_pad([], 1000, 2) ]);
+        $data = array_pad([], 100000, [ array_pad([], 10, 1), array_pad([], 10, 2) ]);
         $means = $this->class->calculateMeans($data);
         $this->assertTrue(is_array($means));
-        $this->assertEquals($means, [ array_pad([], 1000, 1), array_pad([], 1000, 2) ]);
+        $this->assertEquals($means, [ array_pad([], 10, 1), array_pad([], 10, 2) ]);
     }
 
     public function testCalculateMeans()
