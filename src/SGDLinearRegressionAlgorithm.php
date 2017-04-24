@@ -1,38 +1,37 @@
 <?php
 
-namespace Zeeml\Algorithms\Algorithms;
+namespace Zeeml\Algorithms;
 
-use Zeeml\Algorithms\Algorithms\Traits\InterceptCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\PredictionCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\LinearRegressionScore;
-use Zeeml\Algorithms\Algorithms\Traits\MeanCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\PredictionErrorCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\RmseCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\SlopeCalculator;
-use Zeeml\Dataset\DatasetInterface;
+use Zeeml\Algorithms\Traits\InterceptCalculator;
+use Zeeml\Algorithms\Traits\InterceptsHistory;
+use Zeeml\Algorithms\Traits\PredictionCalculator;
+use Zeeml\Algorithms\Traits\LinearRegressionScore;
+use Zeeml\Algorithms\Traits\MeanCalculator;
+use Zeeml\Algorithms\Traits\PredictionErrorCalculator;
+use Zeeml\Algorithms\Traits\PredictionErrorsHistory;
+use Zeeml\Algorithms\Traits\RmseCalculator;
+use Zeeml\Algorithms\Traits\ScoreCalculator;
+use Zeeml\Algorithms\Traits\SlopeCalculator;
+use Zeeml\Algorithms\Traits\SlopesHistory;
 
 /**
  * Class SGDLinearRegressionAlgorithm
  * class that trains a set of data following the linear regression method using stochastic gradient descent
- * @package Zeeml\Algorithms\Adapter
  */
 class SGDLinearRegressionAlgorithm extends AbstractAlgorithms
 {
-    use MeanCalculator, RmseCalculator, SlopeCalculator, InterceptCalculator, PredictionCalculator, PredictionErrorCalculator, LinearRegressionScore {
-        RmseCalculator::reset as resetRmse;
-        SlopeCalculator::reset as resetSlope;
-        InterceptCalculator::reset as resetIntercept;
-        InterceptCalculator::calculate2 as calculateIntercept;
-        PredictionCalculator::reset as resetPrediction;
+    use InterceptCalculator, SlopeCalculator, PredictionCalculator {
+        InterceptCalculator::calculateIntercept2 as calculateIntercept;
+        SlopeCalculator::calculateSlope1 as calculateSlope;
         PredictionCalculator::linearPrediction as predict;
-        PredictionErrorCalculator::reset as resetError;
-        LinearRegressionScore::reset as resetScore;
-
     }
-
-    protected $slopesHistory;
-    protected $interceptsHistory;
-    protected $errorsHistory;
+    use MeanCalculator;
+    use PredictionErrorCalculator;
+    use RmseCalculator;
+    use ScoreCalculator;
+    use InterceptsHistory;
+    use SlopesHistory;
+    use PredictionErrorsHistory;
 
     /**
      * StochasticGradientDescentAlgorithm constructor.
@@ -43,39 +42,33 @@ class SGDLinearRegressionAlgorithm extends AbstractAlgorithms
     }
 
     /**
-     * @param DatasetInterface $dataset
+     * @param array $dataset
      * @param float $learningRate
-     * @param AlgorithmsInterface $previous the previous algorithm used during the previsous epoch , null if first epoch
+     * @param float $interceptStart
+     * @param float $slopeStart
      * @return AlgorithmsInterface
      */
-    public function train(DatasetInterface $dataset, float $learningRate = 0.0, AlgorithmsInterface $previous = null): AlgorithmsInterface
+    public function fit(array $dataset, float $learningRate = 0.0, float $interceptStart = 0, float $slopeStart = 0): AlgorithmsInterface
     {
-        //The history starts off by the latest intercept and slope calculated, if first iteration it is equal to 0
-        if ($previous) {
-            $this->intercept = $previous->getIntercept();
-            $this->slope = $previous->getSlope();
-        }
+        $this->interceptsHistory[] = $this->intercept = $interceptStart;
+        $this->slopesHistory[] = $this->slopes[0] = $slopeStart;
+        $this->predictionErrorsHistory[] = null;
 
-        $this->interceptsHistory[] = $this->getIntercept();
-        $this->slopesHistory[] = $this->getSlope();
-        $this->errorsHistory[] = $this->getError();
-
-        foreach ($dataset as $instance) {
+        foreach ($dataset as $row) {
             //Getting the input
-            $input = $instance->inputs()[0];
-            //Predicting the result based on the intercept/slope
-            $this->predict($input, $this->getIntercept(), $this->getSlope());
-            //calculating the error
-            $this->calculateError($this->getPrediction(), $instance->outputs()[0]);
-            //Calculating the new intercept based on the old one
-            $this->calculateIntercept($this->getIntercept(), $learningRate, $this->getError());
-            //Calculating the new slope based on the old one
-            $this->calculateSlope($input, $learningRate, $this->getError());
+            //Predicting the result based on the intercept/slope from formula : prediction = intercept + slope * input
+            $this->predict($row[0][0], $this->getIntercept(), $this->getSlope(0));
+            //calculating the error from formula : error = prediction - output
+            $this->calculateError($this->getPrediction(), $row[1][0]);
+            //Calculating the new intercept based on the old one from formula :  intercept = intercept - learningRate * error
+            $this->calculateIntercept($this->getIntercept(), $learningRate, $this->getPredictionError());
+            //Calculating the new slope based on the old one from formula : slope = slope - learningRate * error * input;
+            $this->calculateSlope($row[0][0], $learningRate, $this->getPredictionError());
 
             //archive the slope/intercept/error
             $this->interceptsHistory[] = $this->getIntercept();
-            $this->slopesHistory[] = $this->getSlope();
-            $this->errorsHistory[] = $this->getError();
+            $this->slopesHistory[] = $this->getSlope(0);
+            $this->predictionErrorsHistory[] = $this->getPredictionError();
         }
 
         return $this;
@@ -85,11 +78,11 @@ class SGDLinearRegressionAlgorithm extends AbstractAlgorithms
      * @param DatasetInterface $dataset
      * @return float
      */
-    public function test(DatasetInterface $dataset)
+    public function test(array $dataset)
     {
-        $this->calculateMeans($dataset);
+        $means = $this->calculateMeans($dataset);
         $this->calculateRmse($dataset);
-        $this->calculatescore($dataset, $this->getMeanOutputAt(0));
+        $this->calculatescore($dataset, $means[1][0]);
     }
 
     /**
@@ -98,21 +91,25 @@ class SGDLinearRegressionAlgorithm extends AbstractAlgorithms
      * @param $input
      * @return float
      */
-    public function process($input)
+    public function process(float $input): float
     {
-        return $this->intercept + $this->slope * $input;
+        return $this->predict($input, $this->getIntercept(), $this->getSlope(0));
     }
 
     public function reset()
     {
-        $this->interceptsHistory = [];
-        $this->slopesHistory = [];
+        $this->resetInterceptsHistory();
         $this->errorsHistory = [];
         $this->resetRmse();
-        $this->resetSlope();
+        $this->resetSlopes();
         $this->resetIntercept();
         $this->resetPrediction();
-        $this->resetError();
+        $this->resetPredictionError();
         $this->resetScore();
+    }
+
+    public function getErrorsHistory()
+    {
+        return $this->errorsHistory;
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Zeeml\Algorithms\Algorithms\Traits;
+namespace Zeeml\Algorithms\Traits;
 
 /**
  * trait InterceptCalculator that calculates an intercept
- * @package Zeeml\Algorithms\Algorithms\Traits
+ * @package Zeeml\Algorithms\Traits
  */
 trait InterceptCalculator
 {
@@ -12,50 +12,36 @@ trait InterceptCalculator
 
     /**
      * Calculating the intercept following the formula:
-     *   intercept = mean(y) − slope × mean(x)
-     * @param float $meanOutput
-     * @param float $slope
-     * @param float $meanInput
+     * intercept = intercept + learningRate × (y − prediction) × prediction × (1 − prediction)
+     * @param float $previousIntercept
+     * @param float $learningRate
+     * @param float $output
+     * @param float $prediction
      */
-    protected function calculate1(float $meanOutput, float $slope, float $meanInput)
+    public function calculateIntercept1(float $previousIntercept, float $learningRate, float $output, float $prediction)
     {
-        $this->intercept = $meanOutput - ($slope * $meanInput);
+        $this->intercept = $previousIntercept + $learningRate * ($output - $prediction) * $prediction * (1 - $prediction);
     }
 
     /**
      *  Calculating the intercept following the formula:
      *
-     *  intercept = intercept - $learningRate * $error
+     *  intercept = a - b * c
      *
-     * @param float $previousIntercept
-     * @param float $learningRate
-     * @param float $error
+     * @param float $a
+     * @param float $b
+     * @param float $c
      */
-    protected function calculate2(float $previousIntercept, float $learningRate, float $error)
+    public function calculateIntercept2(float $a, float $b, float $c)
     {
-        $this->intercept = $previousIntercept - ($learningRate * $error);
-    }
-
-    /**
-     * Calculating the intercept following the formula:
-     *
-     *   intercept = intercept + learningRate × (y − prediction) × prediction × (1 − prediction)
-     *
-     * @param float $param1
-     * @param float $param2
-     * @param float $param3
-     * @return bool
-     */
-    protected function calculate3(float $previousIntercept, float $learningRate, float $output, float $prediction)
-    {
-        $this->intercept = $previousIntercept + $learningRate * ($output - $prediction) * $prediction * (1 - $prediction);
+        $this->intercept = $a - ($b * $c);
     }
 
     /**
      * returns the intercept
      * @return float
      */
-    protected function getIntercept(): float
+    public function getIntercept(): float
     {
         return $this->intercept;
     }
@@ -63,7 +49,7 @@ trait InterceptCalculator
     /**
      * resets the interceptCalculator by setting the intercept to 0
      */
-    protected function reset()
+    public function resetIntercept()
     {
         $this->intercept = 0;
     }

@@ -1,15 +1,10 @@
 <?php
 
-namespace Zeeml\Algorithms\Algorithms\Traits;
-
-use Zeeml\Algorithms\Exceptions\EmptyDatasetException;
-use Zeeml\Algorithms\Exceptions\IndexNotFoundException;
-use Zeeml\Dataset\Dataset;
-use Zeeml\Dataset\DatasetInterface;
+namespace Zeeml\Algorithms\Traits;
 
 /**
  * trait LinearPredictionCalculator
- * @package Zeeml\Algorithms\Algorithms\Traits
+ * @package Zeeml\Algorithms\Traits
  */
 trait PredictionCalculator
 {
@@ -42,6 +37,7 @@ trait PredictionCalculator
      * @param array $slopes an array of all the slopes
      * @param array $inputs an array of all inputs
      * @return float
+     *
      */
     public function logisticPrediction(float $intercept, array $slopes, array $inputs)
     {
@@ -67,7 +63,7 @@ trait PredictionCalculator
         return $this->prediction;
     }
 
-    public function reset()
+    public function resetPrediction()
     {
         $this->prediction = 0;
     }

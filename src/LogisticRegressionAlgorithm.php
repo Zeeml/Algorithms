@@ -1,13 +1,14 @@
 <?php
 
-namespace Zeeml\Algorithms\Algorithms;
+namespace Zeeml\Algorithms;
 
-use Zeeml\Algorithms\Algorithms\Traits\InterceptCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\MeanCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\PredictionCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\RmseCalculator;
-use Zeeml\Algorithms\Algorithms\Traits\SlopeCalculator;
-use Zeeml\Dataset\DatasetInterface;
+use Zeeml\Algorithms\Traits\InterceptCalculator;
+use Zeeml\Algorithms\Traits\InterceptsHistory;
+use Zeeml\Algorithms\Traits\MeanCalculator;
+use Zeeml\Algorithms\Traits\PredictionCalculator;
+use Zeeml\Algorithms\Traits\RmseCalculator;
+use Zeeml\Algorithms\Traits\SlopeCalculator;
+use Zeeml\Algorithms\Traits\SlopesHistory;
 
 /**
  * Class LogisticRegressionAlgorithm
@@ -16,20 +17,13 @@ use Zeeml\Dataset\DatasetInterface;
  */
 class LogisticRegressionAlgorithm extends AbstractAlgorithms
 {
-    use InterceptCalculator, PredictionCalculator {
-        InterceptCalculator::reset as resetIntercept;
-        InterceptCalculator::calculate3 as calculateIntercept;
-        PredictionCalculator::reset as resetPrediction;
+    use InterceptCalculator, PredictionCalculator  {
+        InterceptCalculator::calculateIntercept1 as calculateIntercept;
         PredictionCalculator::logisticPrediction as predict;
     }
 
-    protected $interceptsHistory;
-    protected $slope1History;
-    protected $slope2History;
-    protected $predictionHistory;
-
-    protected $slope1;
-    protected $slope2;
+    use InterceptsHistory;
+    use SlopesHistory;
 
     public function __construct()
     {
@@ -43,31 +37,18 @@ class LogisticRegressionAlgorithm extends AbstractAlgorithms
      * Prediction =   ----------------------
      *                1 + EXP(-(B0+B1×X1+B2×X2))
      *
-     *
-     *
      * @param DatasetInterface $dataset
      * @param float $learningRate
      * @param AlgorithmsInterface|null $previous
      * @return AlgorithmsInterface
      */
-    public function train(array $data, float $learningRate = 0.0, AlgorithmsInterface $previous = null): AlgorithmsInterface
+    public function fit(array $dataset, float $learningRate = 0.0, float $interceptStart = 0, float $slopeStart = 0): AlgorithmsInterface
     {
-        //if a previous algorithm was used to train the dataset
-        if ($previous) {
-            //use the last values as the new intercept/slope1/slope2
-            $this->intercept = $previous->getIntercept();
-            $this->slope1 = $previous->getSlope1();
-            $this->slope2 = $previous->getSlope2();
-        }
-        //If no previous intercept/slope1/slope2/prediction = 0
+        $this->interceptsHistory[] = $this->intercept = $interceptStart;
+        $this->slopesHistory[] = $this->slope = $slopeStart;
+        $this->predictionErrorsHistory[] = null;
 
-        //add intercept and slopes to the history
-        $this->interceptsHistory[] = $this->getIntercept();
-        $this->slope1History[] = $this->slope1;
-        $this->slope2History[] = $this->slope2;
-
-
-        foreach ($dataset as $instance) {
+        foreach ($dataset as $row) {
             //calculate the prediction
             $this->predict($this->getIntercept(), [$this->getSlope1(), $this->getSlope2()], $instance->getInputs());
             //calculate the new intercept
