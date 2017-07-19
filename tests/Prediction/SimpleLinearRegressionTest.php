@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeeml\Algorithms\Tests;
+namespace Zeeml\Algorithms\Tests\Prediction\Linear;
 
 use PHPUnit\Framework\TestCase;
 use Zeeml\Algorithms\Prediction\Linear\SimpleLinearRegression;

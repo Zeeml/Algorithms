@@ -71,19 +71,19 @@ class SimpleLinearRegression extends LinearAlgorithms
     }
 
     /**
-     * Returns the prediction for a fiven input :
+     * Returns the prediction for a given input :
      * @param float $input
      * @return float
      * @throws WrongUsageException
      */
-    public function predict(float $input): float
+    public function predict($input)
     {
         try {
             return $this
                 ->calculator
                 ->calculate(new SimpleLinearPrediction($input))
-                ->getFormulasResults()
-                ->getLast()
+                ->getResult()
+                ->last()
             ;
         } catch (MissingResultException $exception) {
             throw new WrongUsageException('Prediction can not be called before performing a fit');
@@ -98,7 +98,7 @@ class SimpleLinearRegression extends LinearAlgorithms
     public function getSlope(): float
     {
         try {
-            return $this->calculator->getFormulasResults()->get(SimpleLinearSlope::class);
+            return $this->calculator->getResult()->of(SimpleLinearSlope::class);
         } catch (CalculusResultNotFound $exception) {
             throw new WrongUsageException('The slope was not yet calculated');
         }
@@ -112,7 +112,7 @@ class SimpleLinearRegression extends LinearAlgorithms
     public function getIntercept(): float
     {
         try {
-            return $this->calculator->getFormulasResults()->get(SimpleLinearIntercept::class);
+            return $this->calculator->getResult()->of(SimpleLinearIntercept::class);
         } catch (CalculusResultNotFound $exception) {
             throw new WrongUsageException('The intercept was not yet calculated');
         }

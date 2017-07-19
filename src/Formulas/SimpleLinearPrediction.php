@@ -26,8 +26,8 @@ class SimpleLinearPrediction extends Formulas
     public function calculate(): FormulasInterface
     {
         try {
-            $slope = $this->preRequisites->get(SimpleLinearSlope::class);
-            $intercept = $this->preRequisites->get(SimpleLinearIntercept::class);
+            $slope = $this->previousResults->of(SimpleLinearSlope::class);
+            $intercept = $this->previousResults->of(SimpleLinearIntercept::class);
         }  catch (\Throwable $exception) {
             throw new MissingResultException('Can not calculate the linear prediction without knowing the slope and the intercept');
         }

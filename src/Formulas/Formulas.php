@@ -21,7 +21,7 @@ abstract class Formulas implements FormulasInterface
      * The results of the previous formulas
      * @var FormulasResults
      */
-    protected $preRequisites;
+    protected $previousResults;
 
     /**
      * The result of the current formula
@@ -48,7 +48,7 @@ abstract class Formulas implements FormulasInterface
      */
     final public function knowing(FormulasResults $results): FormulasInterface
     {
-        $this->preRequisites = $results;
+        $this->previousResults = $results;
 
         return $this;
     }

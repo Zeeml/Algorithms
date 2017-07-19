@@ -47,9 +47,9 @@ class CalculatorTest extends TestCase
 
         $this->assertInstanceOf(Calculator::class, $calculator);
 
-        $this->assertEquals($calculator->getFormulasResults()->getAll(), [Formula1::class => 1, Formula2::class => 2]);
-        $this->assertEquals($calculator->getFormulasResults()->get(Formula1::class), 1);
-        $this->assertEquals($calculator->getFormulasResults()->get(Formula2::class), 2);
+        $this->assertEquals($calculator->getResult()->getAll(), [Formula1::class => 1, Formula2::class => 2]);
+        $this->assertEquals($calculator->getResult()->of(Formula1::class), 1);
+        $this->assertEquals($calculator->getResult()->of(Formula2::class), 2);
     }
 
     /**
@@ -65,16 +65,16 @@ class CalculatorTest extends TestCase
         ;
 
         $this->assertInstanceOf(Calculator::class, $calculator);
-        $this->assertEquals($calculator->getFormulasResults()->getAll(), [Formula1::class => 1]);
+        $this->assertEquals($calculator->getResult()->getAll(), [Formula1::class => 1]);
 
         $calculator
             ->calculate($this->formula1)
         ;
 
         $this->assertInstanceOf(Calculator::class, $calculator);
-        $this->assertEquals($calculator->getFormulasResults()->getAll(), [Formula1::class => 1]);
+        $this->assertEquals($calculator->getResult()->getAll(), [Formula1::class => 1]);
 
-        $this->assertCount(1, $calculator->getFormulasResults()->getAll());
+        $this->assertCount(1, $calculator->getResult()->getAll());
     }
 
     /**
@@ -93,9 +93,9 @@ class CalculatorTest extends TestCase
         ;
 
         $this->assertInstanceOf(Calculator::class, $calculator);
-        $this->assertEquals($calculator->getFormulasResults()->get(Formula1::class), 1);
-        $this->assertEquals($calculator->getFormulasResults()->get(Formula2::class), 2);
-        $this->assertEquals($calculator->getFormulasResults()->getAll(), [Formula1::class => 1, Formula2::class => 2]);
+        $this->assertEquals($calculator->getResult()->of(Formula1::class), 1);
+        $this->assertEquals($calculator->getResult()->of(Formula2::class), 2);
+        $this->assertEquals($calculator->getResult()->getAll(), [Formula1::class => 1, Formula2::class => 2]);
     }
 
     /**
@@ -114,9 +114,9 @@ class CalculatorTest extends TestCase
         ;
 
         $this->assertInstanceOf(Calculator::class, $calculator);
-        $this->assertEquals($calculator->getFormulasResults()->get(Formula1::class), 1);
-        $this->assertEquals($calculator->getFormulasResults()->get(Formula2::class), 2);
-        $this->assertEquals($calculator->getFormulasResults()->getAll(), [Formula1::class => 1, Formula2::class => 2]);
+        $this->assertEquals($calculator->getResult()->of(Formula1::class), 1);
+        $this->assertEquals($calculator->getResult()->of(Formula2::class), 2);
+        $this->assertEquals($calculator->getResult()->getAll(), [Formula1::class => 1, Formula2::class => 2]);
 
     }
 

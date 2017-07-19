@@ -18,8 +18,8 @@ class SimpleLinearIntercept extends Formulas
     public function calculate(): FormulasInterface
     {
         try {
-            $means = $this->preRequisites->get(Mean::class);
-            $slope = $this->preRequisites->get(SimpleLinearSlope::class);
+            $means = $this->previousResults->of(Mean::class);
+            $slope = $this->previousResults->of(SimpleLinearSlope::class);
         } catch (\Throwable $exception) {
             throw new MissingResultException('Can not calculate the linear intercept without knowing the mean and the slope');
         }

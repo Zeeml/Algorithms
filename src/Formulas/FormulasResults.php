@@ -22,7 +22,7 @@ class FormulasResults
      * Gets the last result stored
      * @return mixed
      */
-    public function getLast()
+    public function last()
     {
         return end($this->results);
     }
@@ -33,7 +33,7 @@ class FormulasResults
      * @return mixed
      * @throws CalculusResultNotFound
      */
-    public function get(string $formulaName)
+    public function of(string $formulaName)
     {
         if (! isset($this->results[$formulaName])) {
             throw new CalculusResultNotFound('No result found for the given formula : ' . $formulaName );

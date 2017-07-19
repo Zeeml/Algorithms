@@ -74,7 +74,6 @@ class SimpleLinearPredictionTest extends TestCase
             ->knowing($formulaResults)
             ->calculate();
         $formulaResults->save($slope);
-        echo $slope->getResult(), "\n";
 
         $intercept = (new SimpleLinearIntercept())
             ->using($dataSet)

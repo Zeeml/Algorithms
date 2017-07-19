@@ -13,7 +13,7 @@ abstract class Prediction extends Algorithms implements PredictionInterface
      * @param float $data
      * @return float
      */
-    final public function process(float $data): float
+    final public function process($data)
     {
         return $this->predict($data);
     }

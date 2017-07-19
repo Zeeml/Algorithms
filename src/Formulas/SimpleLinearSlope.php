@@ -26,7 +26,7 @@ class SimpleLinearSlope extends Formulas
         }
 
         try {
-            $means = $this->preRequisites->get(Mean::class);
+            $means = $this->previousResults->of(Mean::class);
         } catch (\Throwable $exception) {
             throw new MissingResultException('Can not calculate the linear slope without knowing the mean');
         }
