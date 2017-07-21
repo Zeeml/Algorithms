@@ -74,7 +74,7 @@ class LinearRegressionTest extends TestCase
         $this->assertEquals($linearRegression->getRmse(), $rmse);
 
         foreach ($dataSet as $index => $instance) {
-            $this->assertEquals($instance->result(LinearRegression::class), ['type' => Prediction::PREDICTION, 'result' => $predictions[$index]]);
+            $this->assertEquals($instance->getResult(LinearRegression::class), ['type' => Prediction::PREDICTION, 'result' => $predictions[$index]]);
         }
     }
 

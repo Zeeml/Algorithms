@@ -38,7 +38,7 @@ class Rmse extends Formulas
         $rmse = 0;
 
         foreach ($this->dataSet as $instance) {
-            $result = $instance->result($this->algorithmName);
+            $result = $instance->getResult($this->algorithmName);
 
             if (! isset($result['result'])) {
                 throw new WrongUsageException('Can not calculate accuracy before testing the dataSet');
@@ -47,7 +47,7 @@ class Rmse extends Formulas
 
         }
 
-        $this->result = $rmse / $this->dataSet->size();
+        $this->result = $rmse / $this->dataSet->getSize();
 
         return $this;
     }

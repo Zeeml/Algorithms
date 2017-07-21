@@ -14,7 +14,6 @@ abstract class Algorithms implements AlgorithmsInterface
 
     /**
      * Algorithms constructor.
-     * @param Calculator|null $calculator
      */
     final public function __construct()
     {

@@ -9,6 +9,7 @@ use Zeeml\Algorithms\Formulas\Mean;
 use Zeeml\Algorithms\Formulas\SimpleLinearIntercept;
 use Zeeml\Algorithms\Formulas\SimpleLinearPrediction;
 use Zeeml\Algorithms\Formulas\SimpleLinearSlope;
+use Zeeml\DataSet\DataSet\Instance;
 use Zeeml\DataSet\DataSet\Mapper;
 use Zeeml\DataSet\DataSetFactory;
 
@@ -35,8 +36,11 @@ class LinearPredictionTest extends TestCase
         $dataSet = DataSetFactory::create($dataSet);
         $dataSet->prepare(new Mapper($dims, $outputs));
 
+        /**
+         * @var Instance $instance
+         */
         foreach ($dataSet as $index => $instance) {
-            $prediction = (new LinearPrediction($instance->dimensions(), $coefficients))->calculate();
+            $prediction = (new LinearPrediction($instance->getDimensions(), $coefficients))->calculate();
 
             $this->assertEquals($predictions[$index],$prediction->getResult());
         }
@@ -56,7 +60,7 @@ class LinearPredictionTest extends TestCase
         $dataSet = DataSetFactory::create($dataSet);
         $dataSet->prepare(new Mapper($dims, $outputs));
         foreach ($dataSet as $instance) {
-            (new LinearPrediction($instance->dimensions(), [1]))->calculate();
+            (new LinearPrediction($instance->getDimensions(), [1]))->calculate();
         }
     }
 
