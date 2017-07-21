@@ -44,7 +44,7 @@ class LogisticRegression extends Prediction
         // TODO: Implement test() method.
     }
 
-    public function predict($output)
+    public function predict(DataSet $dataSet)
     {
         // TODO: Implement predict() method.
     }
