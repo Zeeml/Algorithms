@@ -5,23 +5,24 @@ namespace Zeeml\Algorithms\Tests\Formulas;
 use PHPUnit\Framework\TestCase;
 use Zeeml\Algorithms\Formulas\FormulasResults;
 use Zeeml\Algorithms\Formulas\Mean;
+use Zeeml\Algorithms\Formulas\SimpleLinearCoefficients;
 use Zeeml\Algorithms\Formulas\SimpleLinearSlope;
 use Zeeml\DataSet\DataSet\Mapper;
 use Zeeml\DataSet\DataSetFactory;
 
-class SimpleLinearSlopeTest extends TestCase
+class SimpleLinearCoefficientsTest extends TestCase
 {
     /**
      * @dataProvider getData
      * @param array $dataSet
      * @expectedException \Zeeml\Algorithms\Exceptions\MissingResultException
      */
-    public function testCalculateExceptionUsingDataSet(array $dataSet)
+    public function test_calculate_exception_using_dataSet_no_mean(array $dataSet)
     {
         $dataSet = DataSetFactory::create($dataSet);
         $dataSet->prepare(new Mapper([0], [1]));
 
-        (new SimpleLinearSlope())->using($dataSet)->calculate();
+        (new SimpleLinearCoefficients())->using($dataSet)->calculate();
     }
 
     /**
@@ -29,24 +30,23 @@ class SimpleLinearSlopeTest extends TestCase
      * @param array $dataSet
      * @expectedException \Zeeml\Algorithms\Exceptions\WrongUsageException
      */
-    public function testCalculateExceptionWithoutDataSet(array $dataSet)
+    public function test_calculate_exception_without_dataSet(array $dataSet)
     {
-        (new SimpleLinearSlope())->calculate();
+        (new SimpleLinearCoefficients())->calculate();
     }
 
     /**
      * @dataProvider getData
      * @param array $dataSet
-     * @param float $slope
      * @expectedException \Zeeml\Algorithms\Exceptions\WrongUsageException
      */
-    public function testCalculateWithMeanButEmptyMean(array $dataSet, float $slope)
+    public function test_calculate_with_empty_mean(array $dataSet)
     {
         $meanFormula = (new Mean())->calculate();
         $formulaResult = new FormulasResults();
         $formulaResult->save($meanFormula);
 
-        (new SimpleLinearSlope())
+        (new SimpleLinearCoefficients())
             ->knowing($formulaResult)
             ->calculate()
         ;
@@ -57,7 +57,7 @@ class SimpleLinearSlopeTest extends TestCase
      * @param array $dataSet
      * @param float $slope
      */
-    public function testCalculate(array $dataSet, float $slope)
+    public function test_calculate(array $dataSet, array $coefficients)
     {
         $dataSet = DataSetFactory::create($dataSet);
         $dataSet->prepare(new Mapper([0], [1]));
@@ -66,13 +66,13 @@ class SimpleLinearSlopeTest extends TestCase
         $formulaResult = new FormulasResults();
         $formulaResult->save($meanFormula);
 
-        $simpleLinearSlope = (new SimpleLinearSlope())
+        $simpleLinearSlope = (new SimpleLinearCoefficients())
             ->using($dataSet)
             ->knowing($formulaResult)
             ->calculate()
         ;
 
-        $this->assertEquals($simpleLinearSlope->getResult(), $slope);
+        $this->assertEquals($simpleLinearSlope->getResult(), $coefficients);
     }
 
     public function getData()
@@ -86,7 +86,7 @@ class SimpleLinearSlopeTest extends TestCase
                     [3, 2],
                     [5, 5],
                 ],
-                0.8
+                [0.4, 0.8]
             ],
             [
                 [
@@ -107,7 +107,7 @@ class SimpleLinearSlopeTest extends TestCase
                     [240, 120.1],
                     [250, 125.1],
                 ],
-                0.5
+                [0.1, 0.5]
             ]
         ];
     }

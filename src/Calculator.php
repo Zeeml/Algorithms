@@ -18,7 +18,7 @@ use Zeeml\DataSet\DataSet;
  *     ->then(new Formula3())
  *     ...
  *     ->getResults()
- *     ->getLast()
+ *     ->last()
  *
  * Class Calculator
  * @package Zeeml\Algorithms
@@ -84,7 +84,7 @@ class Calculator
      * Gets the results of all the formulas called
      * @return FormulasResults
      */
-    public function getFormulasResults(): FormulasResults
+    public function getResult(): FormulasResults
     {
         return $this->results;
     }

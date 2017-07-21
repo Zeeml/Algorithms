@@ -54,7 +54,7 @@ class FormulasResultsTest extends TestCase
         $formulaResults->save($this->formula2);
 
         $this->assertEquals(
-            $formulaResults->getLast(),
+            $formulaResults->last(),
             2
         );
 
@@ -66,7 +66,7 @@ class FormulasResultsTest extends TestCase
         $formulaResults->save($this->formula5);
 
         $this->assertEquals(
-            $formulaResults->getLast(),
+            $formulaResults->last(),
             2
         );
     }
@@ -77,7 +77,7 @@ class FormulasResultsTest extends TestCase
 
         $formulaResults = new FormulasResults();
         $formulaResults->save($this->formula1);
-        $formulaResults->get('test');
+        $formulaResults->of('test');
     }
 
     public function testGetException2()
@@ -86,7 +86,7 @@ class FormulasResultsTest extends TestCase
 
         $formulaResults = new FormulasResults();
         $formulaResults->save($this->formula3);
-        $formulaResults->get(Formula3::class);
+        $formulaResults->of(Formula3::class);
     }
 
     public function testGetException3()
@@ -95,7 +95,7 @@ class FormulasResultsTest extends TestCase
 
         $formulaResults = new FormulasResults();
         $formulaResults->save($this->formula4);
-        $formulaResults->get(Formula4::class);
+        $formulaResults->of(Formula4::class);
     }
 
     public function testGetException4()
@@ -104,7 +104,7 @@ class FormulasResultsTest extends TestCase
 
         $formulaResults = new FormulasResults();
         $formulaResults->save($this->formula5);
-        $formulaResults->get(Formula5::class);
+        $formulaResults->of(Formula5::class);
     }
 
     public function testGet()
@@ -113,8 +113,8 @@ class FormulasResultsTest extends TestCase
         $formulaResults->save($this->formula1);
         $formulaResults->save($this->formula2);
 
-        $this->assertEquals($formulaResults->get(Formula1::class), 1);
-        $this->assertEquals($formulaResults->get(Formula2::class), 2);
+        $this->assertEquals($formulaResults->of(Formula1::class), 1);
+        $this->assertEquals($formulaResults->of(Formula2::class), 2);
     }
 
     public function testSave()

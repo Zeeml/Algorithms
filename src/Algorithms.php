@@ -9,14 +9,17 @@ namespace Zeeml\Algorithms;
 abstract class Algorithms implements AlgorithmsInterface
 {
     protected $calculator;
+    protected $accuracy;
+    protected $rmse;
 
     /**
      * Algorithms constructor.
      * @param Calculator|null $calculator
      */
-    final public function __construct(Calculator $calculator = null)
+    final public function __construct()
     {
-        $this->calculator = $calculator ?? new Calculator();
+        $this->calculator = new Calculator();
+        $this->accuracy = $this->rmse = 0;
     }
 
     /**
@@ -25,5 +28,23 @@ abstract class Algorithms implements AlgorithmsInterface
     public function getCalculator()
     {
         return $this->calculator;
+    }
+
+    /**
+     * returns the accuracy
+     * @return float
+     */
+    public function getAccuracy(): float
+    {
+        return $this->accuracy;
+    }
+
+    /**
+     * returns the Root Mean Squared Error
+     * @return float
+     */
+    public function getRmse(): float
+    {
+        return $this->rmse;
     }
 }
