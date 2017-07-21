@@ -6,7 +6,7 @@ use Zeeml\Algorithms\Exceptions\MissingResultException;
 use Zeeml\Algorithms\Exceptions\WrongUsageException;
 use Zeeml\DataSet\DataSet;
 
-class SimpleLinearSlope extends Formulas
+class SimpleLinearCoefficients extends Formulas
 {
     /**
      * Calculating the slope of the dataSet following the formula:
@@ -14,6 +14,12 @@ class SimpleLinearSlope extends Formulas
      *               Σ(x - mean(x)) * (y - mean(y))
      *   slope =     ---------------------------
      *                     Σ(x - mean(x))²
+     *
+     * and the intercept following the formula:
+     *
+     *  intercept = mean(y) - slope * mean(x)
+     *
+     * the result returned is an array(intercept, slope)
      *
      * @return FormulasInterface
      * @throws MissingResultException
@@ -31,19 +37,23 @@ class SimpleLinearSlope extends Formulas
             throw new MissingResultException('Can not calculate the linear slope without knowing the mean');
         }
 
-        $this->result = 0;
+        $slope = 0;
         $denominator = 0;
 
         foreach ($this->dataSet as $instance) {
-            $this->result += ($instance->dimension(0) - $means[0][0]) * ($instance->output(0) - $means[1][0]);
+            $slope += ($instance->dimension(0) - $means[0][0]) * ($instance->output(0) - $means[1][0]);
             $denominator += pow(($instance->dimension(0) - $means[0][0]), 2);
         }
 
         if ($denominator === 0) {
-            $this->result = 0;
+            $slope = 0;
         } else {
-            $this->result /= $denominator;
+            $slope /= $denominator;
         }
+
+        $intercept = $means[1][0] - ($slope * $means[0][0]);
+
+        $this->result = [$intercept, $slope];
 
         return $this;
     }

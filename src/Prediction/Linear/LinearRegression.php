@@ -2,54 +2,59 @@
 
 namespace Zeeml\Algorithms\Prediction\Linear;
 
-use Kanel\Specification\Specification;
-use Zeeml\Algorithms\Algorithms;
 use Zeeml\Algorithms\AlgorithmsInterface;
-use Zeeml\Algorithms\DataSet;
-use Zeeml\Algorithms\Exceptions\CalculusResultNotFound;
 use Zeeml\Algorithms\Exceptions\WrongUsageException;
-use Zeeml\Algorithms\Formulas\LinearIntercept;
-use Zeeml\Algorithms\Formulas\SimpleLinearPrediction;
-use Zeeml\Algorithms\Formulas\SimpleLinearSlope;
 use Zeeml\Algorithms\Formulas\Mean;
-use Zeeml\Algorithms\Formulas\Transpose;
-use Zeeml\Algorithms\Specifications\HasOneInput;
+use Zeeml\Algorithms\Formulas\MultipleLinearCoefficients;
+use Zeeml\Algorithms\Formulas\SimpleLinearCoefficients;
+use Zeeml\Algorithms\Prediction\Prediction;
+use Zeeml\DataSet\DataSet;
+use Zeeml\Algorithms\Formulas\Benchmark;
+use Zeeml\Algorithms\Formulas\LinearPrediction;
 
 /**
- * Class LinearRegression that trains the dataSet following the linear regression method
- * This class works with a two dimensional array that looks like :
- *   [
- *        input   output
- *      [  [1] ,   [2]   ],
- *      [  [4] ,   [5]   ],
- *      [  [5] ,   [7]   ],
- *      ....
- *   ]
+ * Class LinearRegression that trains the dataSet following either the simple or multiple linear regression
+ *  - Simple Linear Regression : if the number of dimension is 1
+ *  - Multiple Linear Regression : if the number of dimension is greater than 1
  *
- * Where the index 0 contains the input, the index 1 contains the output
- * @package Zeeml\Algorithms\Adapter
+ * The number of outputs must always be equal to 1 (an exception is thrown otherwise)
  */
-class LinearRegression extends LinearAlgorithms
+class LinearRegression extends Prediction
 {
-    protected $algorithm;
+    protected $coefficients = [];
+
     /**
-     * Trains the dataSet following the Simple Linear Regression Algorithm and calculates the slope and intercept
-     * @param array $dataSet
+     * Trains the dataSet following the Linear Regression Algorithm
+     * @param DataSet $dataSet
      * @param float $learningRate
      * @return AlgorithmsInterface
      * @throws WrongUsageException
      */
-    public function fit(array &$dataSet, float $learningRate = 0.0): AlgorithmsInterface
+    public function fit(DataSet $dataSet, float $learningRate = 0.0): AlgorithmsInterface
     {
-        if (count($dataSet[DataSet::OUTPUTS_INDEX]) > 1 ) {
-            throw new WrongUsageException('A linear regression can not be applied with multiple outputs');
+        $outputSize = count($dataSet->mapper()->outputKeys());
+        if ($outputSize !== 1) {
+            throw new WrongUsageException('Linear regression assumes only one output, ' . $outputSize . ' given');
         }
 
-        if (count($dataSet[DataSet::INPUTS_INDEX]) == 1) {
-            (new SimpleLinearRegression())->fit($dataSet, $learningRate);
+        if (count($dataSet->mapper()->dimensionKeys()) === 1) {
+            $this
+                ->calculator
+                ->using($dataSet)
+                ->calculate(new Mean())
+                ->then(new SimpleLinearCoefficients());
+            ;
         } else {
-            (new MultipleLinearRegression())->fit($dataSet, $learningRate);
+            $this->coefficients = $this
+                ->calculator
+                ->using($dataSet)
+                ->calculate(new MultipleLinearCoefficients())
+                ->getResult()
+                ->last()
+            ;
         }
+
+        $this->coefficients = $this->calculator->getResult()->last();
 
         return $this;
     }
@@ -58,17 +63,54 @@ class LinearRegression extends LinearAlgorithms
      * tests the dataSet using the intercept and slope found during the fit and returns the accuracy of the algorithm
      * Takes the dataSet by reference and fills it with prediction
      *
-     * @param array $dataSet
-     * @return float the RMSE (Root Mean Squared Error)
+     * @param DataSet $dataSet
      * @throws WrongUsageException
      */
-    public function test(array &$dataSet): float
+    public function test(DataSet $dataSet)
     {
-        try {
-            $this->calculate(new SimpleLinearPrediction())
-            ;
-        } catch (CalculusResultNotFound $exception) {
-            throw new WrongUsageException('Test can not be run before fit');
+        if (empty($this->coefficients)) {
+            throw new WrongUsageException('Test can not be run after fit');
         }
+
+        $this->predict($dataSet);
+    }
+
+    /**
+     * Makes a linear prediction of input based on coefficients
+     * @param DataSet $dataSet
+     * @throws WrongUsageException
+     */
+    public function predict(DataSet $dataSet)
+    {
+        foreach ($dataSet as $instance) {
+            $prediction = $this
+                ->calculator
+                ->calculate(new LinearPrediction($instance->dimensions(), $this->coefficients))
+                ->getResult()
+                ->last()
+            ;
+            $instance->addResult(
+                static::class,
+                [
+                    'type'   => self::PREDICTION,
+                    'result' => $prediction
+                ]
+            );
+        }
+
+        $this->calculator->using($dataSet)->calculate(new Benchmark(LinearRegression::class));
+        $results = $this->calculator->getResult()->of(Benchmark::class);
+
+        $this->accuracy = $results[Benchmark::ACCURACY] ?? 0;
+        $this->rmse = $results[Benchmark::RMSE] ?? 0;
+    }
+
+    /**
+     * Gets the coefficients
+     * @return array
+     */
+    public function getCoefficients(): array
+    {
+        return $this->coefficients;
     }
 }

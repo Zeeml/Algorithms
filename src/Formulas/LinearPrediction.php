@@ -5,19 +5,21 @@ namespace Zeeml\Algorithms\Formulas;
 use Zeeml\Algorithms\Exceptions\MissingResultException;
 use Zeeml\Algorithms\Exceptions\WrongUsageException;
 
-class MultipleLinearPrediction extends Formulas
+class LinearPrediction extends Formulas
 {
     protected $inputs;
+    protected $coefficients;
 
-    public function __construct(array $inputs)
+    public function __construct(array $inputs, array $coefficients)
     {
-        $this->inputs = array_values($inputs);
+        $this->inputs = $inputs;
+        $this->coefficients = $coefficients;
     }
 
     /**
      * the linear prediction is calculated for each input of the dataSet at a specific index using a slope and an intercept :
      *
-     *    prediction = intercept + slope * input
+     *    prediction = B0 + B1 * X1 + B2 * X2 ....
      *
      * @return FormulasInterface
      * @throws MissingResultException
@@ -32,20 +34,14 @@ class MultipleLinearPrediction extends Formulas
 
         }
 
-        try {
-            $coefficients = $this->previousResults->of(MultipleLinearCoefficients::class);
-        }  catch (\Throwable $exception) {
-            throw new MissingResultException('Can not calculate the linear prediction without knowing the coefficients');
-        }
-
-        $trainingInputsCounts = count($coefficients) - 1;
+        $trainingInputsCounts = count($this->coefficients) - 1;
         if ($trainingInputsCounts != count($this->inputs)) {
             throw new WrongUsageException('Linear regression was calculated for ' . $trainingInputsCounts . ' inputs');
         }
 
         array_unshift($this->inputs, 1);
 
-        foreach ($coefficients as $index => $coefficient) {
+        foreach ($this->coefficients as $index => $coefficient) {
             $this->result = $this->result ?? 0;
             $this->result += $coefficient * $this->inputs[$index];
         }

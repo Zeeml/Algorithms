@@ -11,6 +11,8 @@ use Zeeml\DataSet\DataSet;
  */
 abstract class Formulas implements FormulasInterface
 {
+    const EPSILON = 0.0000000001;
+
     /**
      * the dataSet to use
      * @var DataSet
