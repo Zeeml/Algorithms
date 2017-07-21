@@ -46,21 +46,21 @@ class Benchmark extends Formulas
         $rmse = 0;
 
         foreach ($this->dataSet as $instance) {
-            $result = $instance->result($this->algorithmName);
+            $result = $instance->getResult($this->algorithmName);
 
             if (! isset($result['result'])) {
                 throw new WrongUsageException('Can not calculate accuracy before testing the dataSet');
             }
 
-            if (abs($result['result'] - $instance->output(0)) <= self::EPSILON ) {
+            if (abs($result['result'] - $instance->getOutput(0)) <= self::EPSILON ) {
                 $correctGuesses ++;
             }
 
-            $rmse += pow($result['result'] - $instance->output(0), 2);
+            $rmse += pow($result['result'] - $instance->getOutput(0), 2);
         }
 
-        $accuracy = $correctGuesses / $this->dataSet->size();
-        $rmse = sqrt($rmse / $this->dataSet->size());
+        $accuracy = $correctGuesses / $this->dataSet->getSize();
+        $rmse = sqrt($rmse / $this->dataSet->getSize());
 
         $this->result = [self::ACCURACY => $accuracy, self::RMSE => $rmse];
 

@@ -12,29 +12,10 @@ class LogisticRegression extends Prediction
 
     public function fit(DataSet $dataSet, float $learningRate = 0.0): AlgorithmsInterface
     {
-        $outputSize = count($dataSet->mapper()->outputKeys());
+        $outputSize = count($dataSet->getMapper()->getOutputKeys());
         if ($outputSize !== 1) {
             throw new WrongUsageException('Logistic regression assumes only one output, ' . $outputSize . ' given');
         }
-
-        if (count($dataSet->mapper()->dimensionKeys()) === 1) {
-            $this
-                ->calculator
-                ->using($dataSet)
-                ->calculate(new Mean())
-                ->then(new SimpleLinearCoefficients());
-            ;
-        } else {
-            $this->coefficients = $this
-                ->calculator
-                ->using($dataSet)
-                ->calculate(new MultipleLinearCoefficients())
-                ->getResult()
-                ->last()
-            ;
-        }
-
-        $this->coefficients = $this->calculator->getResult()->last();
 
         return $this;
     }

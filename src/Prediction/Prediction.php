@@ -11,7 +11,7 @@ abstract class Prediction extends Algorithms implements PredictionInterface
 
     /**
      * In a prediction context, calling process is replaced by predict
-     * @param float $data
+     * @param DataSet $dataSet
      * @return float
      */
     final public function process(DataSet $dataSet)

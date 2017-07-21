@@ -121,12 +121,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Zeeml/Dataset.git",
-                "reference": "95bd764f26d1a1c10f60b84a8f5a53562438cf79"
+                "reference": "fdebf94149598bc4d3fc6658de39d99242c87da8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Zeeml/Dataset/zipball/95bd764f26d1a1c10f60b84a8f5a53562438cf79",
-                "reference": "95bd764f26d1a1c10f60b84a8f5a53562438cf79",
+                "url": "https://api.github.com/repos/Zeeml/Dataset/zipball/fdebf94149598bc4d3fc6658de39d99242c87da8",
+                "reference": "fdebf94149598bc4d3fc6658de39d99242c87da8",
                 "shasum": ""
             },
             "require": {
@@ -158,7 +158,7 @@
                 }
             ],
             "description": "A multi-purpose DataSet for Machine Learning algorithms training",
-            "time": "2017-07-19 16:01:32"
+            "time": "2017-07-20 16:00:33"
         }
     ],
     "packages-dev": [

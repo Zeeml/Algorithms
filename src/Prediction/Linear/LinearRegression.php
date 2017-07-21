@@ -32,12 +32,12 @@ class LinearRegression extends Prediction
      */
     public function fit(DataSet $dataSet, float $learningRate = 0.0): AlgorithmsInterface
     {
-        $outputSize = count($dataSet->mapper()->outputKeys());
+        $outputSize = count($dataSet->getMapper()->getOutputKeys());
         if ($outputSize !== 1) {
             throw new WrongUsageException('Linear regression assumes only one output, ' . $outputSize . ' given');
         }
 
-        if (count($dataSet->mapper()->dimensionKeys()) === 1) {
+        if (count($dataSet->getMapper()->getDimensionKeys()) === 1) {
             $this
                 ->calculator
                 ->using($dataSet)
@@ -85,7 +85,7 @@ class LinearRegression extends Prediction
         foreach ($dataSet as $instance) {
             $prediction = $this
                 ->calculator
-                ->calculate(new LinearPrediction($instance->dimensions(), $this->coefficients))
+                ->calculate(new LinearPrediction($instance->getDimensions(), $this->coefficients))
                 ->getResult()
                 ->last()
             ;

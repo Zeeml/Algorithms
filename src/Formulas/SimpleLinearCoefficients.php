@@ -41,8 +41,8 @@ class SimpleLinearCoefficients extends Formulas
         $denominator = 0;
 
         foreach ($this->dataSet as $instance) {
-            $slope += ($instance->dimension(0) - $means[0][0]) * ($instance->output(0) - $means[1][0]);
-            $denominator += pow(($instance->dimension(0) - $means[0][0]), 2);
+            $slope += ($instance->getDimension(0) - $means[0][0]) * ($instance->getOutput(0) - $means[1][0]);
+            $denominator += pow(($instance->getDimension(0) - $means[0][0]), 2);
         }
 
         if ($denominator === 0) {

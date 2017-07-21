@@ -45,7 +45,7 @@ class MultipleLinearCoefficients extends Formulas
         }
 
         try {
-            $dimensions = $this->dataSet->rawDimensions();
+            $dimensions = $this->dataSet->getRawDimensions();
             array_walk(
                 $dimensions,
                 function(&$row) {
@@ -53,7 +53,7 @@ class MultipleLinearCoefficients extends Formulas
                 }
             );
             $x = new NumArray($dimensions);
-            $y = new NumArray($this->dataSet->rawOutputs());
+            $y = new NumArray($this->dataSet->getRawOutputs());
 
             $xTransposed = $x->getTranspose();
             $inverse = LinAlg::inv((clone $xTransposed)->dot($x));
